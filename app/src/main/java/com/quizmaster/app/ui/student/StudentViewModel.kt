@@ -33,9 +33,9 @@ class StudentViewModel @Inject constructor(
 
     fun loadProfile() {
         viewModelScope.launch {
-            _student.value = studentRepo.getByUserId(session.currentUserId)
-        }
-    }
+            val s = studentRepo.getByUserId(session.currentUserId)
+            _student.value = s
+            s?.let { session.displayName = it.displayName }
 
     fun createProfile(firstName: String, lastName: String, displayName: String, grade: String) {
         if (firstName.isBlank() || lastName.isBlank() || displayName.isBlank()) {
@@ -51,6 +51,7 @@ class StudentViewModel @Inject constructor(
                 grade = grade
             )
             _student.value = s
+            session.displayName = displayName
         }
     }
 

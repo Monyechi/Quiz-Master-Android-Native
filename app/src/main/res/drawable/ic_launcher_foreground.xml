@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pencil/edit icon — represents taking quizzes. Replace via Android Studio Image Asset Studio for production. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M13.5,77.625L13.5,94.5L30.375,94.5L80.145,44.73L63.27,27.855L13.5,77.625ZM93.195,31.68C94.95,29.925 94.95,27.09 93.195,25.335L82.665,14.805C80.91,13.05 78.075,13.05 76.32,14.805L68.085,23.04L84.96,39.915L93.195,31.68Z" />
+</vector>

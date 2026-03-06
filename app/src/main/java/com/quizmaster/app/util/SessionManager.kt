@@ -21,6 +21,10 @@ class SessionManager @Inject constructor(@ApplicationContext ctx: Context) {
         get() = prefs.getString(KEY_ROLE, "") ?: ""
         set(value) = prefs.edit().putString(KEY_ROLE, value).apply()
 
+    var displayName: String
+        get() = prefs.getString(KEY_DISPLAY_NAME, "") ?: ""
+        set(value) = prefs.edit().putString(KEY_DISPLAY_NAME, value).apply()
+
     val isLoggedIn: Boolean get() = currentUserId != -1
 
     fun logout() = prefs.edit().clear().apply()
@@ -28,5 +32,6 @@ class SessionManager @Inject constructor(@ApplicationContext ctx: Context) {
     companion object {
         private const val KEY_USER_ID = "user_id"
         private const val KEY_ROLE = "role"
+        private const val KEY_DISPLAY_NAME = "display_name"
     }
 }

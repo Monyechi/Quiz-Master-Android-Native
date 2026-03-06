@@ -103,7 +103,6 @@ class QuizFragment : Fragment() {
         val answerButtons = listOf(binding.btnA, binding.btnB, binding.btnC, binding.btnD)
         answerButtons.forEach { btn ->
             btn.isEnabled = true
-            btn.setBackgroundResource(com.google.android.material.R.attr.colorPrimary)
             btn.setBackgroundColor(Color.parseColor("#1976D2"))
         }
     }

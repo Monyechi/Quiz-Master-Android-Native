@@ -48,6 +48,7 @@ class InstructorViewModel @Inject constructor(
                 lastName = lastName
             )
             _instructor.value = i
+            session.displayName = "$firstName $lastName"
         }
     }
 
