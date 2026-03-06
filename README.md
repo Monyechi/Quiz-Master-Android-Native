@@ -2,6 +2,14 @@
 
 A faithful Android port of the [QuizMaster](https://github.com/Monyechi/QuizMaster) ASP.NET MVC web application.
 
+## Screenshots
+
+<p float="left">
+  <img src="screenshots/login.png" width="220" alt="Login Screen" />
+  <img src="screenshots/dashboard.png" width="220" alt="Student Dashboard" />
+  <img src="screenshots/quiz.png" width="220" alt="Quiz Screen" />
+</p>
+
 ## Features
 
 | Feature | Web App | Android App |
