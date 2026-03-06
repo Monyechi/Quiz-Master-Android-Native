@@ -2,6 +2,45 @@
 
 A faithful Android port of the [QuizMaster](https://github.com/Monyechi/QuizMaster) ASP.NET MVC web application.
 
+## How This Project Came About
+
+This app started as a full migration exercise: take an existing ASP.NET MVC + Entity Framework classroom quiz platform and rebuild it as a native Android application in Kotlin while keeping feature parity.
+
+The goal was not just a UI clone, but a platform rewrite that demonstrates practical Android engineering decisions:
+
+- Replace server-side session/auth flows with local-first mobile auth and session persistence
+- Convert web controller/data patterns into Android MVVM + repository architecture
+- Preserve the Student/Instructor role model, profile workflows, messaging, and quiz lifecycle
+- Fix known web-version edge cases during the migration (routing consistency and relational data integrity)
+
+## Technical Description
+
+Quiz Master Android uses a layered architecture with clear separation of concerns:
+
+- `UI Layer`: Fragments + ViewModels expose state via LiveData/StateFlow and handle user events
+- `Domain/Data Access`: Repositories coordinate local persistence and remote quiz fetches
+- `Local Persistence`: Room entities + DAOs for `User`, `Student`, `Instructor`, and `Message`
+- `Dependency Injection`: Hilt wires Room, Retrofit, repositories, and app-scoped services
+- `Networking`: Retrofit + OkHttp handles API calls and response mapping
+
+Authentication is implemented locally for demo portability:
+
+- Passwords are hashed with SHA-256 + salt before storage
+- Session state is stored in SharedPreferences via `SessionManager`
+- Role-aware navigation determines Student vs Instructor dashboard flows after login
+
+## Trivia API Used
+
+Quiz questions come from the **Open Trivia DB API**:
+
+- Base endpoint: `https://opentdb.com/api.php`
+- Android client: `TriviaApiService` (Retrofit interface)
+- Categories mapped in app: Science (`17`), Math (`19`), History (`23`)
+- Difficulty supported: Easy, Medium, Hard
+- Question handling: HTML decoding + answer shuffling in the repository layer before presenting to UI
+
+API reference: [Open Trivia DB](https://opentdb.com/api_config.php)
+
 ## Screenshots
 
 <p float="left">
