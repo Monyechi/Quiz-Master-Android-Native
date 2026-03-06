@@ -10,6 +10,14 @@ A faithful Android port of the [QuizMaster](https://github.com/Monyechi/QuizMast
   <img src="screenshots/quiz.png" width="220" alt="Quiz Screen" />
 </p>
 
+## Download APK
+
+[![Download APK](https://img.shields.io/badge/Download-APK-5B2BE0?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Monyechi/Quiz-Master-Android-Native/releases)
+
+1. Open the [Releases page](https://github.com/Monyechi/Quiz-Master-Android-Native/releases)
+2. Download the latest APK asset
+3. Install it on Android (enable "Install unknown apps" if prompted)
+
 ## Features
 
 | Feature | Web App | Android App |
