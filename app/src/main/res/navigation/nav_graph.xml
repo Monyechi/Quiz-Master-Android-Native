@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <!-- ── Auth ── -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.quizmaster.app.ui.auth.LoginFragment"
+        android:label="Sign In">
+        <action android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action android:id="@+id/action_loginFragment_to_studentDashboardFragment"
+            app:destination="@id/studentDashboardFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action android:id="@+id/action_loginFragment_to_instructorDashboardFragment"
+            app:destination="@id/instructorDashboardFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.quizmaster.app.ui.auth.RegisterFragment"
+        android:label="Register">
+        <action android:id="@+id/action_registerFragment_to_studentDashboardFragment"
+            app:destination="@id/studentDashboardFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action android:id="@+id/action_registerFragment_to_instructorDashboardFragment"
+            app:destination="@id/instructorDashboardFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- ── Student ── -->
+    <fragment
+        android:id="@+id/studentDashboardFragment"
+        android:name="com.quizmaster.app.ui.student.StudentDashboardFragment"
+        android:label="Dashboard">
+        <action android:id="@+id/action_studentDashboardFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/studentDashboardFragment"
+            app:popUpToInclusive="true" />
+        <action android:id="@+id/action_studentDashboardFragment_to_createStudentProfileFragment"
+            app:destination="@id/createStudentProfileFragment" />
+        <action android:id="@+id/action_studentDashboardFragment_to_editStudentProfileFragment"
+            app:destination="@id/editStudentProfileFragment" />
+        <action android:id="@+id/action_studentDashboardFragment_to_selectInstructorFragment"
+            app:destination="@id/selectInstructorFragment" />
+        <action android:id="@+id/action_studentDashboardFragment_to_quizPickerFragment"
+            app:destination="@id/quizPickerFragment" />
+        <action android:id="@+id/action_studentDashboardFragment_to_inboxFragment"
+            app:destination="@id/inboxFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createStudentProfileFragment"
+        android:name="com.quizmaster.app.ui.student.CreateStudentProfileFragment"
+        android:label="Create Profile" />
+
+    <fragment
+        android:id="@+id/editStudentProfileFragment"
+        android:name="com.quizmaster.app.ui.student.EditStudentProfileFragment"
+        android:label="Edit Profile" />
+
+    <fragment
+        android:id="@+id/selectInstructorFragment"
+        android:name="com.quizmaster.app.ui.student.SelectInstructorFragment"
+        android:label="Select Instructor" />
+
+    <!-- ── Instructor ── -->
+    <fragment
+        android:id="@+id/instructorDashboardFragment"
+        android:name="com.quizmaster.app.ui.instructor.InstructorDashboardFragment"
+        android:label="Dashboard">
+        <action android:id="@+id/action_instructorDashboardFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/instructorDashboardFragment"
+            app:popUpToInclusive="true" />
+        <action android:id="@+id/action_instructorDashboardFragment_to_createInstructorProfileFragment"
+            app:destination="@id/createInstructorProfileFragment" />
+        <action android:id="@+id/action_instructorDashboardFragment_to_editInstructorProfileFragment"
+            app:destination="@id/editInstructorProfileFragment" />
+        <action android:id="@+id/action_instructorDashboardFragment_to_inboxFragment"
+            app:destination="@id/inboxFragment" />
+        <action android:id="@+id/action_instructorDashboardFragment_to_composeMessageFragment"
+            app:destination="@id/composeMessageFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createInstructorProfileFragment"
+        android:name="com.quizmaster.app.ui.instructor.CreateInstructorProfileFragment"
+        android:label="Create Profile" />
+
+    <fragment
+        android:id="@+id/editInstructorProfileFragment"
+        android:name="com.quizmaster.app.ui.instructor.EditInstructorProfileFragment"
+        android:label="Edit Profile" />
+
+    <!-- ── Quiz ── -->
+    <fragment
+        android:id="@+id/quizPickerFragment"
+        android:name="com.quizmaster.app.ui.quiz.QuizPickerFragment"
+        android:label="Choose Difficulty">
+        <argument android:name="category"
+            app:argType="string"
+            android:defaultValue="SCIENCE" />
+        <action android:id="@+id/action_quizPickerFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.quizmaster.app.ui.quiz.QuizFragment"
+        android:label="Quiz">
+        <argument android:name="category"
+            app:argType="string"
+            android:defaultValue="SCIENCE" />
+        <argument android:name="difficulty"
+            app:argType="string"
+            android:defaultValue="EASY" />
+        <action android:id="@+id/action_quizFragment_to_quizResultFragment"
+            app:destination="@id/quizResultFragment"
+            app:popUpTo="@id/quizPickerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/quizResultFragment"
+        android:name="com.quizmaster.app.ui.quiz.QuizResultFragment"
+        android:label="Results">
+        <argument android:name="score"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument android:name="total"
+            app:argType="integer"
+            android:defaultValue="10" />
+    </fragment>
+
+    <!-- ── Messages ── -->
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.quizmaster.app.ui.message.InboxFragment"
+        android:label="Inbox">
+        <action android:id="@+id/action_inboxFragment_to_composeMessageFragment"
+            app:destination="@id/composeMessageFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/composeMessageFragment"
+        android:name="com.quizmaster.app.ui.message.ComposeMessageFragment"
+        android:label="Compose Message">
+        <argument android:name="receiverUserId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument android:name="receiverDisplayName"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+
+</navigation>
