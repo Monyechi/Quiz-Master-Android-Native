@@ -41,7 +41,14 @@ class InboxFragment : Fragment() {
         }
 
         binding.fabCompose.setOnClickListener {
-            findNavController().navigate(R.id.action_inboxFragment_to_composeMessageFragment)
+            val instructor = viewModel.studentInstructor.value
+            val bundle = if (instructor != null) {
+                android.os.Bundle().apply {
+                    putInt("receiverUserId", instructor.userId)
+                    putString("receiverDisplayName", "${instructor.firstName} ${instructor.lastName}")
+                }
+            } else null
+            findNavController().navigate(R.id.action_inboxFragment_to_composeMessageFragment, bundle)
         }
     }
 

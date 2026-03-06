@@ -11,8 +11,6 @@ import com.quizmaster.app.data.repository.StudentRepository
 import com.quizmaster.app.util.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,7 +30,9 @@ class InstructorViewModel @Inject constructor(
 
     fun loadProfile() {
         viewModelScope.launch {
-            _instructor.value = instructorRepo.getByUserId(session.currentUserId)
+            val i = instructorRepo.getByUserId(session.currentUserId)
+            _instructor.value = i
+            i?.let { session.displayName = "${it.firstName} ${it.lastName}" }
         }
     }
 

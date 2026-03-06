@@ -57,7 +57,7 @@ class ComposeMessageFragment : Fragment() {
 
             viewModel.sendMessage(
                 receiverUserId = receiverUserId,
-                senderDisplayName = "User #${session.currentUserId}",
+                senderDisplayName = session.displayName.ifBlank { "User #${session.currentUserId}" },
                 receiverDisplayName = receiver,
                 subject = subject,
                 content = content
