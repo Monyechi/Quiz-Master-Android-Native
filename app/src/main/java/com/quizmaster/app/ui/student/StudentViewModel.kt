@@ -36,6 +36,8 @@ class StudentViewModel @Inject constructor(
             val s = studentRepo.getByUserId(session.currentUserId)
             _student.value = s
             s?.let { session.displayName = it.displayName }
+        }
+    }
 
     fun createProfile(firstName: String, lastName: String, displayName: String, grade: String) {
         if (firstName.isBlank() || lastName.isBlank() || displayName.isBlank()) {
