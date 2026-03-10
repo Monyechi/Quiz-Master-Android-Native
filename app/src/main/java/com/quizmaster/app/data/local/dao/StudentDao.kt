@@ -18,6 +18,12 @@ interface StudentDao {
     @Query("SELECT * FROM students WHERE instructorId = :instructorId")
     fun getStudentsByInstructor(instructorId: Int): Flow<List<StudentEntity>>
 
+    @Query("SELECT * FROM students WHERE instructorId IS NULL ORDER BY displayName COLLATE NOCASE")
+    fun getUnassignedStudents(): Flow<List<StudentEntity>>
+
+    @Query("UPDATE students SET instructorId = :instructorId WHERE studentId = :studentId")
+    suspend fun assignStudentToInstructor(studentId: Int, instructorId: Int): Int
+
     @Update
     suspend fun update(student: StudentEntity)
 

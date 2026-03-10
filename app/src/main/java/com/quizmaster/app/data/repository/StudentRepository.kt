@@ -34,6 +34,11 @@ class StudentRepository @Inject constructor(private val dao: StudentDao) {
     fun getStudentsByInstructor(instructorId: Int): Flow<List<StudentEntity>> =
         dao.getStudentsByInstructor(instructorId)
 
+    fun getUnassignedStudents(): Flow<List<StudentEntity>> = dao.getUnassignedStudents()
+
+    suspend fun assignStudentToInstructor(studentId: Int, instructorId: Int): Boolean =
+        dao.assignStudentToInstructor(studentId, instructorId) > 0
+
     suspend fun enrollWithInstructor(student: StudentEntity, instructorId: Int) {
         dao.update(student.copy(instructorId = instructorId))
     }

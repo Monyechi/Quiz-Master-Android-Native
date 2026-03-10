@@ -34,11 +34,21 @@ class ComposeMessageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val receiverUserId = arguments?.getInt("receiverUserId", -1) ?: -1
-        val receiverDisplayName = arguments?.getString("receiverDisplayName") ?: ""
+        val receiverDisplayName = arguments?.getString("receiverDisplayName").orEmpty()
+        val resolvedReceiver = if (receiverDisplayName.isBlank() && receiverUserId != -1) {
+            "User #$receiverUserId"
+        } else {
+            receiverDisplayName
+        }
+        val hasKnownReceiver = receiverUserId != -1
 
-        if (receiverDisplayName.isNotBlank()) {
-            binding.etReceiver.setText(receiverDisplayName)
+        if (hasKnownReceiver) {
+            binding.etReceiver.setText(resolvedReceiver)
             binding.etReceiver.isEnabled = false
+        } else {
+            binding.tilReceiver.error =
+                "Receiver is unknown. Open compose from assigned instructor/student list."
+            binding.btnSend.isEnabled = false
         }
 
         binding.btnSend.setOnClickListener {
@@ -51,7 +61,11 @@ class ComposeMessageFragment : Fragment() {
                 return@setOnClickListener
             }
             if (receiverUserId == -1) {
-                Toast.makeText(requireContext(), "Receiver not identified.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Cannot send message: receiver is unknown.",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 

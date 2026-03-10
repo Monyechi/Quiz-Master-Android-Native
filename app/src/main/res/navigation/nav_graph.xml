@@ -69,7 +69,7 @@
     <fragment
         android:id="@+id/selectInstructorFragment"
         android:name="com.quizmaster.app.ui.student.SelectInstructorFragment"
-        android:label="Select Instructor" />
+        android:label="Student Self-Enrollment" />
 
     <!-- ── Instructor ── -->
     <fragment
@@ -88,6 +88,8 @@
             app:destination="@id/inboxFragment" />
         <action android:id="@+id/action_instructorDashboardFragment_to_composeMessageFragment"
             app:destination="@id/composeMessageFragment" />
+        <action android:id="@+id/action_instructorDashboardFragment_to_enrollStudentFragment"
+            app:destination="@id/enrollStudentFragment" />
     </fragment>
 
     <fragment
@@ -99,6 +101,11 @@
         android:id="@+id/editInstructorProfileFragment"
         android:name="com.quizmaster.app.ui.instructor.EditInstructorProfileFragment"
         android:label="Edit Profile" />
+
+    <fragment
+        android:id="@+id/enrollStudentFragment"
+        android:name="com.quizmaster.app.ui.instructor.EnrollStudentFragment"
+        android:label="Instructor-Managed Enrollment" />
 
     <!-- ── Quiz ── -->
     <fragment

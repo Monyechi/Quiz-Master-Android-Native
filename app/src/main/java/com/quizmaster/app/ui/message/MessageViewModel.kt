@@ -1,10 +1,7 @@
 package com.quizmaster.app.ui.message
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.quizmaster.app.data.local.entity.InstructorEntity
 import com.quizmaster.app.data.repository.InstructorRepository
 import com.quizmaster.app.data.repository.MessageRepository
 import com.quizmaster.app.data.repository.StudentRepository
@@ -14,6 +11,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+data class ComposeTarget(
+    val receiverUserId: Int,
+    val receiverDisplayName: String
+)
 
 @HiltViewModel
 class MessageViewModel @Inject constructor(
@@ -26,19 +28,18 @@ class MessageViewModel @Inject constructor(
     val inbox = messageRepo.getInbox(session.currentUserId)
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
-    /** Non-null when the current user is a Student and is enrolled with an instructor. */
-    private val _studentInstructor = MutableLiveData<InstructorEntity?>()
-    val studentInstructor: LiveData<InstructorEntity?> = _studentInstructor
+    val isStudentRole: Boolean
+        get() = session.currentUserRole == "Student"
 
-    init {
-        if (session.currentUserRole == "Student") {
-            viewModelScope.launch {
-                val student = studentRepo.getByUserId(session.currentUserId)
-                if (student?.instructorId != null) {
-                    _studentInstructor.value = instructorRepo.getById(student.instructorId!!)
-                }
-            }
-        }
+    suspend fun resolveStudentComposeTarget(): ComposeTarget? {
+        if (!isStudentRole) return null
+        val student = studentRepo.getByUserId(session.currentUserId) ?: return null
+        val instructorId = student.instructorId ?: return null
+        val instructor = instructorRepo.getById(instructorId) ?: return null
+        return ComposeTarget(
+            receiverUserId = instructor.userId,
+            receiverDisplayName = "${instructor.firstName} ${instructor.lastName}"
+        )
     }
 
     fun sendMessage(

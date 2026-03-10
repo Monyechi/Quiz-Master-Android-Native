@@ -6,7 +6,6 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -83,7 +82,7 @@ class QuizFragment : Fragment() {
 
     private fun highlightAnswers(result: AnswerResult) {
         val answerButtons = listOf(binding.btnA, binding.btnB, binding.btnC, binding.btnD)
-        val q = viewModel.currentQuestion ?: return
+        viewModel.currentQuestion ?: return
         answerButtons.forEach { btn ->
             val btnText = Html.fromHtml(btn.text.toString(), Html.FROM_HTML_MODE_LEGACY).toString()
             val correct = Html.fromHtml(result.correctAnswer, Html.FROM_HTML_MODE_LEGACY).toString()

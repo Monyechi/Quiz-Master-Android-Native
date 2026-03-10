@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -40,15 +41,25 @@ class InboxFragment : Fragment() {
             }
         }
 
+        binding.fabCompose.visibility = if (viewModel.isStudentRole) View.VISIBLE else View.GONE
+
         binding.fabCompose.setOnClickListener {
-            val instructor = viewModel.studentInstructor.value
-            val bundle = if (instructor != null) {
-                android.os.Bundle().apply {
-                    putInt("receiverUserId", instructor.userId)
-                    putString("receiverDisplayName", "${instructor.firstName} ${instructor.lastName}")
+            lifecycleScope.launch {
+                val target = viewModel.resolveStudentComposeTarget()
+                if (target == null) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Cannot compose: no assigned instructor found for this student.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return@launch
                 }
-            } else null
-            findNavController().navigate(R.id.action_inboxFragment_to_composeMessageFragment, bundle)
+                val bundle = Bundle().apply {
+                    putInt("receiverUserId", target.receiverUserId)
+                    putString("receiverDisplayName", target.receiverDisplayName)
+                }
+                findNavController().navigate(R.id.action_inboxFragment_to_composeMessageFragment, bundle)
+            }
         }
     }
 

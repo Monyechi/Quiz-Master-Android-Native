@@ -28,6 +28,9 @@ class InstructorViewModel @Inject constructor(
     private val _uiEvent = MutableLiveData<String>()
     val uiEvent: LiveData<String> = _uiEvent
 
+    val unassignedStudents = studentRepo.getUnassignedStudents()
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
     fun loadProfile() {
         viewModelScope.launch {
             val i = instructorRepo.getByUserId(session.currentUserId)
@@ -70,4 +73,20 @@ class InstructorViewModel @Inject constructor(
     fun getMyStudents(instructorId: Int) =
         studentRepo.getStudentsByInstructor(instructorId)
             .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+    fun assignStudentToCurrentInstructor(studentId: Int) {
+        viewModelScope.launch {
+            val instructor = _instructor.value ?: instructorRepo.getByUserId(session.currentUserId)
+            if (instructor == null) {
+                _uiEvent.value = "Create your instructor profile before assigning students."
+                return@launch
+            }
+            val assigned = studentRepo.assignStudentToInstructor(studentId, instructor.instructorId)
+            _uiEvent.value = if (assigned) {
+                "Student assigned successfully."
+            } else {
+                "Unable to assign student."
+            }
+        }
+    }
 }

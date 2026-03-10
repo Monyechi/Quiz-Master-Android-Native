@@ -66,12 +66,14 @@ API reference: [Open Trivia DB](https://opentdb.com/api_config.php)
 | Role selection at sign-up | Razor Register page | RadioButton (Student / Instructor) |
 | Instructor profile (auto-generated key) | ✅ | ✅ |
 | Student profile (display name, grade) | ✅ | ✅ |
-| Select / enroll with instructor by key | ✅ | ✅ (list + key entry) |
+| Student self-enrollment | ✅ | ✅ (student selects instructor) |
+| Instructor-managed student enrollment | ✅ | ✅ (instructor assigns unassigned students) |
 | Science / Math / History quizzes | opentdb.com (client-side JS) | opentdb.com via Retrofit |
 | Easy / Medium / Hard difficulty | ✅ | ✅ |
 | Quiz result screen | In-page alert | Dedicated result fragment with score & rating |
 | Student → Instructor messaging | ✅ | ✅ |
 | Instructor → Student messaging | ✅ | ✅ |
+| Bidirectional messaging verified | N/A | ✅ (unit + instrumentation tests) |
 | Inbox (received messages) | ✅ | ✅ |
 | Session management | ASP.NET cookie auth | SharedPreferences |
 | Logout | ✅ | Overflow menu → Logout |

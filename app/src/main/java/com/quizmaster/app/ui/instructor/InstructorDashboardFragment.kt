@@ -90,6 +90,9 @@ class InstructorDashboardFragment : Fragment() {
         binding.btnMessages.setOnClickListener {
             findNavController().navigate(R.id.action_instructorDashboardFragment_to_inboxFragment)
         }
+        binding.btnManageEnrollment.setOnClickListener {
+            findNavController().navigate(R.id.action_instructorDashboardFragment_to_enrollStudentFragment)
+        }
         binding.btnEditProfile.setOnClickListener {
             findNavController().navigate(R.id.action_instructorDashboardFragment_to_editInstructorProfileFragment)
         }
